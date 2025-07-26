@@ -1,7 +1,7 @@
 ---
 title: First Post
 author: Tyler Angelier
-pubDatetime: 2022-09-21T05:17:19Z
+pubDatetime: 2025-07-26T21:59:39Z
 slug: first-post
 featured: true
 draft: false
