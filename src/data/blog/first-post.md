@@ -6,65 +6,64 @@ slug: first-post
 featured: true
 draft: false
 tags:
+  - astro
+  - cloudflare
 description: My first blog post using Astro & Cloudflare Workers.
 ---
 
-Welcome to my blog! This is my first post with the new blog software. This time I am using [Astro](https://astro.build)
-and [Cloudflare Workers](https://workers.cloudflare.com/).
+Welcome to my blog! This is my first post with the new blog setup. This time, I’m using [Astro](https://astro.build) and [Cloudflare Workers](https://workers.cloudflare.com/).
 
 ## Table of Contents
 
-I haven't blogged in a log time. My [last blog article](https://medium.com/@tylerangelier/oracle-pipelined-table-functions-part-one-99696c95e60b)
-was in August of 2019! Honestly, I've been wanting to get into the habit of documenting things I work and sharing that information
-via a blog again. With the rise of AI tools (what I've been spending my "extra" time playing with) I got motivated to build
-out my blog again, with the help of AI.
+I haven't blogged in a long time. My [last blog article](https://medium.com/@tylerangelier/oracle-pipelined-table-functions-part-one-99696c95e60b) was way back in August of 2019! Honestly, I’ve been wanting to get back into the habit of documenting the things I work on and sharing that knowledge through a blog again.
 
-The technolgy stack here is quite simple. The blog is built on [Astro](https://astro.build) - I've heard about it from my job
-at Oracle and figured I'd give it a try. I was going to go with [Hugo](https://gohugo.io/) as I've played around with that software
-before and was going to use GitHub Pages to host it. In my chat with ChatGPT on building this blog, it called out [Cloudflare Pages](https://pages.cloudflare.com/)
-as an alternative hosting provider. I started to research that and decided I'd try using Cloudflare for hosting. I've used GitHub Pages before
-and while it was fine, I've Cloudflare for DNS for _years_. They always seem to deliver top-notch software and the changeup of things should help
-keep me interested in the project.
+With the rise of AI tools (which I’ve been spending my "extra" time playing with), I finally got the motivation to rebuild my blog—ironically, with a little help from AI itself.
 
-This was the first curveball after deciding to go for Astro. Cloudflare is pretty clear they are [leaving Cloudflare Pages to the wayside](https://developers.cloudflare.com/workers/static-assets/migration-guides/migrate-from-pages/)
-and anyone starting a new project should start with Cloudflare Workers. Well, that's obviously me so off to using Cloudflare Workers now!
+The tech stack here is pretty straightforward. The blog is built using [Astro](https://astro.build). I’d heard about it through work at Oracle and figured I’d give it a shot. I initially considered [Hugo](https://gohugo.io/) since I’d used it before and was planning to host with GitHub Pages. But during a chat with ChatGPT about building this blog, it suggested [Cloudflare Pages](https://pages.cloudflare.com/) as an alternative host.
 
-Okay okay, getting slightly ahead of myself. As any developer who blogs, the theme was pretty important to me. After _intense hours of research_ (being performed by ChatGPT o3)
-I found [AstroPaper](https://github.com/satnaing/astro-paper). It's well supported and customizable, which were two things I was looking for. Oh and of course,
-it looks drop dead gorgeous with attention to the small details. The way the color bar increases as you scroll through the article is :cheff-kiss:
+I started researching and decided to go with Cloudflare for hosting. I've used GitHub Pages before, and while it worked fine, I’ve been using Cloudflare for DNS for _years_. They consistently deliver top-notch tooling, and switching things up felt like a good way to stay engaged in the project.
+
+Now here’s where the first curveball came in: after deciding to go with Astro, I found out Cloudflare is [shifting focus away from Pages](https://developers.cloudflare.com/workers/static-assets/migration-guides/migrate-from-pages/) and encouraging new projects to use Cloudflare Workers instead.
+
+So, I pivoted to Workers. Naturally.
+
+Okay okay, getting ahead of myself. Like any dev-blogger, the theme was pretty important to me. After _intense hours of research_ (courtesy of ChatGPT o3), I landed on [AstroPaper](https://github.com/satnaing/astro-paper). It’s well-supported and highly customizable—two things I really wanted. Plus, it looks drop-dead gorgeous and nails the little UI details. The way the color bar grows as you scroll? Chef’s kiss.
 
 ## Setup
 
 ### Astro
 
-Run the install method for astro and use the AstroPaper template.
+Run the install command for Astro using the AstroPaper template:
 
 ```bash
 npm create astro@latest -- --template satnaing/astro-paper
 ```
 
-This is really it. The readme includes an awesome table of commands to run, but of course what I was looking for is `pnpm run dev` so I can
-see the default blog configuration. It comes with plenty of sample material to get you started. Some items I did was
+That’s basically it. The README includes a great table of common commands, but I was mainly looking for `pnpm run dev` to preview the default blog layout. The starter content is robust and gets you up and running fast.
 
-- Configure some constants in `config.ts` and `constants.ts`.
-- Remove sample blog content and images.
-- Cleanup readme.
+Some tweaks I made:
 
-### Github
+- Customized constants in `config.ts` and `constants.ts`
+- Removed sample blog content and images
+- Cleaned up the README
 
-Normal stuff. Create a new repository and push the changes up.
+### GitHub
+
+The usual workflow:
+
+- Created a new repository
+- Pushed everything up
 
 ### Cloudflare
 
-I already had an account and domains with Cloudflare, so this was super simple.
+I already had an account and domains with Cloudflare, so this part was quick.
 
-- I signed in
-- Went the workers section
-- Started a new project from an existing repository
-- Plugged in the build and run commands per the readme
+- Logged in
+- Navigated to the Workers section
+- Started a new project from the GitHub repo
+- Plugged in the build and deployment commands (from the AstroPaper README)
 
-After that, I came back to the local repository and made a `wrangler.jsonc` file - this tells Cloudflare Workers how the project works.
-A very simple configuration to start with.
+Then, I added a `wrangler.jsonc` file in my local repo—this tells Cloudflare Workers how to run the project. Here's the simple config I started with:
 
 ```jsonc
 {
@@ -82,7 +81,6 @@ A very simple configuration to start with.
 }
 ```
 
-Committed this file and ran my first build! Of course, the first build failed because my deploy command was `npx wrangler deploy` and `wrangler` wasn't installed.
-This was easily fixed by running `npm i wrangler`.
+I committed this file and kicked off my first build! Naturally, it failed at first because `npx wrangler deploy` couldn't find `wrangler`—I hadn’t installed it. A quick `npm i wrangler` fixed that.
 
-Now the blog is live at https://blog.trangelier.dev/about/!
+And now, the blog is live at: https://blog.trangelier.dev/ 🎉
