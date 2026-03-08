@@ -1,0 +1,60 @@
+---
+kind: pipeline
+type: docker
+name: default
+
+steps:
+  - name: install
+    image: node:20
+    commands:
+      - corepack enable
+      - corepack prepare pnpm@10.11.1 --activate
+      - pnpm install
+
+  - name: lint
+    image: node:20
+    commands:
+      - corepack enable
+      - corepack prepare pnpm@10.11.1 --activate
+      - pnpm run lint
+
+  - name: format-check
+    image: node:20
+    commands:
+      - corepack enable
+      - corepack prepare pnpm@10.11.1 --activate
+      - pnpm run format:check
+
+  - name: build
+    image: node:20
+    commands:
+      - corepack enable
+      - corepack prepare pnpm@10.11.1 --activate
+      - pnpm run build
+
+trigger:
+  event:
+    - pull_request
+    - push
+---
+kind: pipeline
+type: docker
+name: deploy
+
+steps:
+  - name: install-build
+    image: node:20
+    commands:
+      - corepack enable
+      - corepack prepare pnpm@10.11.1 --activate
+      - pnpm install
+      - pnpm run build
+
+trigger:
+  event:
+    - push
+  branch:
+    - main
+
+depends_on:
+  - default
