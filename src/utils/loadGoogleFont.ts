@@ -23,7 +23,9 @@ function toArrayBuffer(buffer: Buffer): ArrayBuffer {
   ) as ArrayBuffer;
 }
 
-async function loadLocalMonoFont(weight: 400 | 700): Promise<ArrayBuffer | null> {
+async function loadLocalMonoFont(
+  weight: 400 | 700
+): Promise<ArrayBuffer | null> {
   for (const fontPath of MONO_FONT_CANDIDATES[weight]) {
     try {
       const font = await readFile(fontPath);
