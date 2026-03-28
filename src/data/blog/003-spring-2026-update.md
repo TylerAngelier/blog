@@ -1,6 +1,7 @@
 ---
 title: Spring 2026 update
 author: Tyler Angelier
+pubDatetime: 2026-03-28T14:01:26Z
 slug: spring-2026-update
 featured: true
 draft: false
