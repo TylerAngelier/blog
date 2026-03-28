@@ -1,43 +1,3 @@
-import { readFile } from "node:fs/promises";
-
-const MONO_FONT_CANDIDATES = {
-  400: [
-    "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
-    "/usr/share/fonts/truetype/liberation2/LiberationMono-Regular.ttf",
-    "/usr/share/fonts/truetype/noto/NotoSansMono-Regular.ttf",
-    "/System/Library/Fonts/Supplemental/Courier New.ttf",
-    "/System/Library/Fonts/Supplemental/Andale Mono.ttf",
-  ],
-  700: [
-    "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
-    "/usr/share/fonts/truetype/liberation2/LiberationMono-Bold.ttf",
-    "/usr/share/fonts/truetype/noto/NotoSansMono-Bold.ttf",
-    "/System/Library/Fonts/Supplemental/Courier New Bold.ttf",
-  ],
-} as const;
-
-function toArrayBuffer(buffer: Buffer): ArrayBuffer {
-  return buffer.buffer.slice(
-    buffer.byteOffset,
-    buffer.byteOffset + buffer.byteLength
-  ) as ArrayBuffer;
-}
-
-async function loadLocalMonoFont(
-  weight: 400 | 700
-): Promise<ArrayBuffer | null> {
-  for (const fontPath of MONO_FONT_CANDIDATES[weight]) {
-    try {
-      const font = await readFile(fontPath);
-      return toArrayBuffer(font);
-    } catch {
-      // Try the next installed font candidate.
-    }
-  }
-
-  return null;
-}
-
 async function loadGoogleFont(
   font: string,
   text: string,
@@ -91,8 +51,7 @@ async function loadGoogleFonts(
 
   const fonts = await Promise.all(
     fontsConfig.map(async ({ name, font, weight, style }) => {
-      const localFont = await loadLocalMonoFont(weight as 400 | 700);
-      const data = localFont ?? (await loadGoogleFont(font, text, weight));
+      const data = await loadGoogleFont(font, text, weight);
       return { name, data, weight, style };
     })
   );
